@@ -76,8 +76,7 @@ Tag.propTypes = {
   moveTag: _react2.default.PropTypes.func,
   removeComponent: _react2.default.PropTypes.func,
   classNames: _react2.default.PropTypes.object,
-  readOnly: _react2.default.PropTypes.bool,
-  connectDropTarget: _react2.default.PropTypes.func.isRequired
+  readOnly: _react2.default.PropTypes.bool
 };
 Tag.defaultProps = {
   labelField: 'text',
