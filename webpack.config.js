@@ -20,8 +20,7 @@ module.exports = {
   },
   externals: {
     'react': 'React',
-    'react-dom': 'ReactDOM',
-    'react-dnd': 'ReactDnD'
+    'react-dom': 'ReactDOM'
   },
   output: {
     path: path.resolve('./dist'),

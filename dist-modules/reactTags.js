@@ -10,12 +10,6 @@ var _reactDom = require('react-dom');
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _reactDnd = require('react-dnd');
-
-var _reactDndHtml5Backend = require('react-dnd-html5-backend');
-
-var _reactDndHtml5Backend2 = _interopRequireDefault(_reactDndHtml5Backend);
-
 var _Suggestions = require('./Suggestions');
 
 var _Suggestions2 = _interopRequireDefault(_Suggestions);
@@ -59,7 +53,6 @@ var ReactTags = _react2.default.createClass({
     inline: _react2.default.PropTypes.bool,
     handleDelete: _react2.default.PropTypes.func.isRequired,
     handleAddition: _react2.default.PropTypes.func.isRequired,
-    handleDrag: _react2.default.PropTypes.func,
     handleFilterSuggestions: _react2.default.PropTypes.func,
     allowDeleteFromEmptyInput: _react2.default.PropTypes.bool,
     handleInputChange: _react2.default.PropTypes.func,
@@ -150,10 +143,10 @@ var ReactTags = _react2.default.createClass({
     }
   },
   handleKeyDown: function handleKeyDown(e) {
-    var _state = this.state;
-    var query = _state.query;
-    var selectedIndex = _state.selectedIndex;
-    var suggestions = _state.suggestions;
+    var _state = this.state,
+        query = _state.query,
+        selectedIndex = _state.selectedIndex,
+        suggestions = _state.suggestions;
 
     // hide suggestions menu on escape
 
@@ -287,18 +280,13 @@ var ReactTags = _react2.default.createClass({
     // find their position in the array
     var tagIndex = tags.indexOf(tag);
     var afterTagIndex = tags.indexOf(afterTag);
-
-    // call handler with current position and after position
-    this.props.handleDrag(tag, tagIndex, afterTagIndex);
   },
   render: function render() {
-    var moveTag = this.props.handleDrag ? this.moveTag : null;
     var tagItems = this.props.tags.map(function (tag, i) {
       return _react2.default.createElement(_Tag2.default, { key: i,
         tag: tag,
         labelField: this.props.labelField,
         onDelete: this.handleDelete.bind(this, i),
-        moveTag: moveTag,
         removeComponent: this.props.removeComponent,
         readOnly: this.props.readOnly,
         classNames: this.state.classNames });
@@ -347,7 +335,6 @@ var ReactTags = _react2.default.createClass({
 });
 
 module.exports = {
-  WithContext: (0, _reactDnd.DragDropContext)(_reactDndHtml5Backend2.default)(ReactTags),
   WithOutContext: ReactTags,
   Keys: Keys
 };

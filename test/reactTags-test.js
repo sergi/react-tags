@@ -3,14 +3,13 @@ import { expect } from 'chai';
 import { mount } from 'enzyme';
 import { spy } from 'sinon';
 import noop from 'lodash/noop';
-import { WithContext as ReactTags } from '../lib/ReactTags';
+import { WithOutContext as ReactTags } from '../lib/ReactTags';
 
 const defaults = {
   tags: [{ id: 1, text: "Apple" }],
   suggestions: ["Banana", "Apple", "Apricot", "Pear", "Peach"],
   handleAddition: noop,
   handleDelete: noop,
-  handleDrag: noop
 }
 
 const DOWN_ARROW_KEY_CODE = 40;

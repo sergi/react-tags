@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { expect } from 'chai';
-import { DragDropContext } from 'react-dnd';
-import TestBackend from 'react-dnd-test-backend';
 import { shallow, mount, render } from 'enzyme';
 import sinon from 'sinon';
 import TestUtils from 'react-addons-test-utils';
@@ -9,13 +7,11 @@ import noop from 'lodash/noop';
 import Tag from '../lib/Tag';
 
 function wrapInTestContext(DecoratedComponent) {
-  return DragDropContext(TestBackend)(
-    React.createClass({
-      render: function () {
-        return <DecoratedComponent {...this.props} />;
-      }
-    })
-  );
+  return React.createClass({
+    render: function () {
+      return <DecoratedComponent {...this.props} />;
+    }
+  })
 }
 
 function mockItem(overrides) {
@@ -66,26 +62,5 @@ describe("Tag", () => {
     const $el = mount(mockItem({ onDelete: spy }));
     $el.find('.remove').simulate('click');
     expect(spy.calledOnce).to.be.true;
-  });
-
-  it("should be draggable", () => {
-    const root = TestUtils.renderIntoDocument(mockItem());
-    const backend = root.getManager().getBackend();
-    const tag = TestUtils.findRenderedComponentWithType(root, Tag);
-    backend.simulateBeginDrag([tag.getDecoratedComponentInstance().getHandlerId()]);
-    expect(tag.getDecoratedComponentInstance().state.isDragging).to.be.true;
-    const el = TestUtils.findRenderedDOMComponentWithTag(root, "span");
-    expect(el.style.opacity).to.equal('0');
-    backend.simulateEndDrag();
-    expect(el.style.opacity).to.equal('1');
-    expect(tag.getDecoratedComponentInstance().state.isDragging).to.be.false;
-  });
-
-  it("should not be draggable if readOnly is true", () => {
-    const root = TestUtils.renderIntoDocument(mockItem({ readOnly: true }));
-    const backend = root.getManager().getBackend();
-    const tag = TestUtils.findRenderedComponentWithType(root, Tag);
-    backend.simulateBeginDrag([tag.getDecoratedComponentInstance().getHandlerId()]);
-    expect(tag.getDecoratedComponentInstance().state.isDragging).to.be.false;
   });
 });
